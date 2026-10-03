@@ -37,3 +37,10 @@ Compression is enabled by default, but `restore` transparently handles both comp
   Decode a token back into a fresh dict. Raises `SnapshotError` for malformed tokens.
 - `SnapshotError`  
   Exception type raised by `restore` for invalid tokens.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
